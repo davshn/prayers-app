@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import DrawerNavigator from './DrawerNavigator';
 
-import Splash from '../views/splash/Index';
+import Splash from '../views/Splash/Index';
 
 const Stack = createStackNavigator();
 
