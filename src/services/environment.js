@@ -7,7 +7,6 @@ const api = create({
         "Cache-Control": "no-cache",
         Accept: "application/json; version=0",
         "Content-Type": "application/json",
-        'Authorization': '',
         credentials: 'same-origin'
     },
     timeout: 15000
