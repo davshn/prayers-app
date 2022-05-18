@@ -1,11 +1,12 @@
 import { create } from "apisauce";
-import { BASEURL } from "../constants/CONFIG";
+import { BASEURL,VERSION } from "../constants/CONFIG";
 
 const api = create({
     baseURL: BASEURL,
     headers: {
         "Cache-Control": "no-cache",
-        Accept: "application/json; version=0",
+        Accept: "application/json",
+        Version:VERSION,
         "Content-Type": "application/json",
         credentials: 'same-origin'
     },
