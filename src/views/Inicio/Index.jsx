@@ -3,6 +3,7 @@ import { Button } from "react-native";
 //import { postLogin } from "../../services/userServices";
 //import { postRefresh } from "../../services/userServices";
 import { userInfo } from "../../services/userServices";
+import ButtonGradient from "../../components/ButtonGradient";
 
 export default function Inicio() {
 
@@ -37,8 +38,7 @@ export default function Inicio() {
 
     return (
         <>
-            <Button onPress={prueba}
-                title="Pruebas" />
+            <ButtonGradient title="Pruebas" onPress={prueba}/>
         </>
     )
 }
