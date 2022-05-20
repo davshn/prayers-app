@@ -5,7 +5,7 @@ export default function ButtonGradient ({ title, onPress }){
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <LinearGradient
-        colors={['#C55128', '#EA5D2C', '#FF6833']}
+        colors={['#000', '#C55128', '#FF6833']}
         style={styles.linearGradient}>
         <Text style={styles.buttonText}>{title}</Text>
       </LinearGradient>

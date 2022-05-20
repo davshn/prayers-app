@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Inicio from '../views/Inicio/Index';
+import Start from '../views/Start';
 
 const Tab = createBottomTabNavigator();
 
@@ -8,7 +8,7 @@ export default function TabNavigator() {
 
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
-            <Tab.Screen name="Start" component={Inicio} />
+            <Tab.Screen name="Start" component={Start} />
         </Tab.Navigator>
     )
 }
