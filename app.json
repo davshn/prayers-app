@@ -11,6 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#010c1b"
     },
+    "jsEngine": "hermes",
     "updates": {
       "fallbackToCacheTimeout": 0
     },

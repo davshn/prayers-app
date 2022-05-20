@@ -1,5 +1,5 @@
 import api from "./environment";
-import { VERSION } from "../constants/CONFIG";
+import { VERSION } from "../constants/config";
 
 const Route = '/user';
 
