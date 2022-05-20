@@ -6,7 +6,7 @@ const api = create({
     headers: {
         "Cache-Control": "no-cache",
         Accept: "application/json",
-        Version:VERSION,
+        Version: VERSION,
         "Content-Type": "application/json",
         credentials: 'same-origin'
     },
