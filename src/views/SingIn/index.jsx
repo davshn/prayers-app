@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
 import * as Device from 'expo-device';
 import { useDispatch } from "react-redux";
-import { Box, Input, Icon, Text, Spacer, FormControl, Alert } from "native-base";
+import { Box, Input, Icon, Text, Spacer, FormControl } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 
+import ShowAlert from "../../components/ShowAlert";
 import { userLogin } from "../../services/userServices";
 import { loginUser } from "../../stateManagement/actions/authUserActions";
 import ButtonGradient from '../../components/ButtonGradient';
-import { NavigationHelpersContext } from "@react-navigation/native";
 
-export default function SingIn({navigation}) {
+export default function SingIn({ navigation }) {
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
     const [input, setInput] = useState({});
+    const [error, setError] = useState("");
+
     const deviceInfo = Device.totalMemory + Device.osBuildId;
-    
-    useEffect(() => handleInputChange(deviceInfo,"deviceInfo"), []);
-    
+
+    useEffect(() => handleInputChange(deviceInfo, "deviceInfo"), []);
+
     function handleInputChange(text, name) {
         setInput(prev => ({ ...prev, [name]: text }));
     }
@@ -24,14 +26,15 @@ export default function SingIn({navigation}) {
     async function handleSendForm() {
         if (input.email && input.password) {
             const user = await userLogin(input);
-            if (!user.ok) console.log(user.data);
+            if (!user.ok) setError(user.data);
             else {
                 dispatch(loginUser(user.data));
-                navigation.popToTop();
+                navigation.navigate('Splash');
             }
         }
+        else setError("Se requiere un correo y una contraseña");
     }
-    console.log(input)
+
     return (
         <Box h="100%" bg="white" alignItems="center" justifyContent="center">
             <Spacer />
@@ -47,13 +50,14 @@ export default function SingIn({navigation}) {
                 {!input?.password && <FormControl.ErrorMessage position="absolute" bottom="0" right="0">
                     Contraseña requerida.
                 </FormControl.ErrorMessage>}
-            </FormControl  >
+            </FormControl>
             <ButtonGradient title="Ingresar" onPress={() => handleSendForm()} />
             <Text fontSize="xl" mt="10">Olvidaste tu contraseña?</Text>
             <Spacer />
             <Text fontSize="xl" mt="10">Aun no tienes una cuenta?</Text>
             <Text fontSize="xl">Registrate</Text>
             <Spacer />
+            {error && <ShowAlert text={error} onPress={()=>setError("")} />}
         </Box>
     )
 }
