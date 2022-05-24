@@ -8,7 +8,7 @@ export default function DrawerNavigator() {
 
     return (
         <Drawer.Navigator>
-            <Drawer.Screen name="Main" component={TabNavigator} />
+            <Drawer.Screen name="Start" component={TabNavigator} />
         </Drawer.Navigator>
     )
 }

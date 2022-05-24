@@ -3,7 +3,6 @@ import { Box, Image, Text } from "native-base";
 import ButtonGradient from '../../components/ButtonGradient';
 
 export default function Main({navigation}) {
-
     return (
         <Box h="100%" bg="white" alignItems="center" justifyContent="center">
             <Image source={{

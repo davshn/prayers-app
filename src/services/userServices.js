@@ -40,7 +40,7 @@ export const userRefresh = async (token, refreshToken) => {
     }
 }
 
-export const userInfo = async (token) => {
+export const getUserInfo = async (token) => {
     try {
         api.setHeader('Autentication', token);
         const user = await api.get(Route + '/info');

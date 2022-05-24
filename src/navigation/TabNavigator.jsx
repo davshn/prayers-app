@@ -8,7 +8,7 @@ export default function TabNavigator() {
 
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
-            <Tab.Screen name="Start" component={Start} />
+            <Tab.Screen name="Inicio" component={Start} />
         </Tab.Navigator>
     )
 }

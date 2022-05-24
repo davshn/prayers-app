@@ -3,6 +3,8 @@ import createSecureStore from "redux-persist-expo-securestore";
 import { persistReducer } from 'redux-persist';
 
 import authUserReducer from './authUserReducer';
+import userInfoReducer from './userInfoReducer';
+import allPrayersReducer from './allPrayersReducer';
 
 const storage = createSecureStore();
 
@@ -13,4 +15,6 @@ const persistConfig = {
 
 export default combineReducers({
     authUserReducer: persistReducer(persistConfig, authUserReducer),
+    userInfoReducer,
+    allPrayersReducer
 })
