@@ -6,6 +6,7 @@ const INITIAL_STATE = {
 }
 
 const authUserReducer = (state = INITIAL_STATE, { type, payload }) => {
+
     switch (type) {
         case LOGIN_USER: return {
             ...state,

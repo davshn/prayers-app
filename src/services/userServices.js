@@ -45,7 +45,6 @@ export const getUserInfo = async (token) => {
         api.setHeader('Autentication', token);
         const user = await api.get(Route + '/info');
         console.log("Getting user");
-        console.log(user)
         return user;
     } catch (error) {
         console.log("Something went wrong...");

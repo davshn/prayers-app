@@ -8,6 +8,8 @@ import MainSwiper from "../../components/MainSwiper";
 export default function Inicio() {
     const userInfo = useSelector(state => state.userInfoReducer);
 
+    const actualPage = useSelector(state => state.allPrayersReducer.actualPage);
+
     function prueba() {
         /* const body = {                    
              name: "Pruebas",
@@ -31,7 +33,7 @@ export default function Inicio() {
 
     return (
         <>
-            <MainSwiper cards={[]}/>
+            <MainSwiper />
         </>
     )
 }

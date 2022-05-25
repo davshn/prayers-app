@@ -10,6 +10,7 @@ import { userRefresh, getUserInfo } from "../../services/userServices";
 
 import { loginUser, logoutUser } from "../../stateManagement/actions/authUserActions";
 import { setUserInfo } from "../../stateManagement/actions/userInfoActions";
+import { setActualPage, setNextPage } from "../../stateManagement/actions/allPrayersActions";
 
 export default function Splash({ navigation }) {
     const dispatch = useDispatch();
@@ -18,31 +19,37 @@ export default function Splash({ navigation }) {
 
     useEffect(() => {
         getUserInformation();
-        getPrayers();
     }, []);
 
     async function getUserInformation() {
         const userInformation = await getUserInfo(user.token);
-        if (userInformation.ok) dispatch(setUserInfo(userInformation.data)); 
-        else {
-            await refreshUserToken();
+        if (userInformation.ok) {
+            dispatch(setUserInfo(userInformation.data));
+            getPrayers();
         }
+        else await refreshUserToken();
     }
-    
+
     async function refreshUserToken() {
         const userRefreshed = await userRefresh(user.token, deviceInfo);
+        console.log(userRefreshed)
         if (userRefreshed.ok) {
-            dispatch(setUserInfo(loginUser(userRefreshed.data)));
+            dispatch(loginUser(userRefreshed.data));
             await getUserInformation();
         }
         else dispatch(logoutUser());
     }
 
     async function getPrayers() {
-        const allInitialPrayers = await prayerGetAll(0);
+        const [allActualPrayers, allNextPrayers] = await Promise.all([
+            await prayerGetAll(user.token, 0),
+            await prayerGetAll(user.token, 1)
+        ]);
+        dispatch(setActualPage(allActualPrayers.data));
+        dispatch(setNextPage(allNextPrayers.data));
         navigation.navigate('Home');
     }
-    
+
     return (
         <ImageBackground source={Splashing} resizeMode="cover" style={{ height: "100%" }} />
     )

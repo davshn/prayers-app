@@ -14,9 +14,9 @@ export function setNextPage(prayers) {
 
 }
 
-export function changeNextPage(prayers) {
+export function changeNextPage() {
 
-    return { type: CHANGE_NEXT_PAGE, payload: prayers };
+    return { type: CHANGE_NEXT_PAGE };
 
 }
 

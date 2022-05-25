@@ -24,7 +24,6 @@ const allPrayersReducer = (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             actualPage: state.nextPage,
             currentPage: state.currentPage + 1,
-            nextPage: payload.data
         }
 
         default: return state;

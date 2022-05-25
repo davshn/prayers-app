@@ -1,28 +1,54 @@
 import Swiper from "react-native-deck-swiper";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { View, Text, StyleSheet } from "react-native";
+import { useRef } from "react";
 
-export default function MainSwiper({cards}) {
+import { prayerSupport } from "../../services/prayerServices";
+import { changeNextPage } from "../../stateManagement/actions/allPrayersActions";
+
+export default function MainSwiper() {
+    const dispatch = useDispatch();
+    const actualPage = useSelector(state => state.allPrayersReducer.actualPage);
+    const user = useSelector(state => state.authUserReducer);
+
+    const swiperRef = useRef(null);
+
+    function supportPrayer(id) {
+        prayerSupport(user.token, id);
+
+    }
+
+    function nextPrayer() {
+        
+    }
+
+    function getMorePrayers() {
+        dispatch(changeNextPage());
+        
+    }
+
 
     return (
         <View style={styles.card}>
-            <Swiper cards={cards}
-            renderCard={(card) => {
-                return (
-                    <View style={styles.card}>
-                        <Text style={styles.text}>{card}</Text>
-                    </View>
-                )
-            }}
-            onSwiped={(cardIndex) => { console.log(cardIndex) }}
-            onSwipedAll={() => { console.log('onSwipedAll') }}
-            cardIndex={0}
-            backgroundColor={'#4FD0E9'}
-            stackSize={3}>
-            <Button
-                onPress={() => { console.log('oulala') }}
-                title="Press me">
-                You can press me
-            </Button>
+            <Swiper 
+                cards={actualPage}
+                renderCard={(card) => {
+                    return (
+                        <View style={styles.card}>
+                            <Text style={styles.title}>{card.title}</Text>
+                            <Text style={styles.text}>{card.text}</Text>
+                            <Text style={styles.text}>{card.updatedAt}</Text>
+                        </View>
+                    )
+                }}
+                onSwipedRight={(cardIndex) => supportPrayer(actualPage[cardIndex].id)}
+                onSwipedLeft={(cardIndex) => nextPrayer()}
+                onSwipedAll={() => getMorePrayers()}
+                backgroundColor={'#4FD0E9'}
+                stackSize={2}
+                verticalSwipe={false}
+            >
+                <Text style={styles.text}>No quedan mas </Text>
             </Swiper>
         </View>
     )
@@ -41,9 +67,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "white"
     },
-    text: {
+    title: {
         textAlign: "center",
         fontSize: 50,
+        backgroundColor: "transparent"
+    },
+    text: {
+        textAlign: "center",
+        fontSize: 20,
         backgroundColor: "transparent"
     }
 });
