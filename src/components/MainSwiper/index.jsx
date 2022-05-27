@@ -1,49 +1,52 @@
 import Swiper from "react-native-deck-swiper";
 import { useSelector, useDispatch } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
-import { useRef } from "react";
 
-import { prayerSupport } from "../../services/prayerServices";
-import { changeNextPage } from "../../stateManagement/actions/allPrayersActions";
+import { prayerSupport, prayerGetAll } from "../../services/prayerServices";
+import { changeNextPage, setNextPage } from "../../stateManagement/actions/allPrayersActions";
 
 export default function MainSwiper() {
     const dispatch = useDispatch();
     const actualPage = useSelector(state => state.allPrayersReducer.actualPage);
+    const nextPage = useSelector(state => state.allPrayersReducer.nextPage);
+    const currentPage = useSelector(state => state.allPrayersReducer.currentPage);
     const user = useSelector(state => state.authUserReducer);
-
-    const swiperRef = useRef(null);
 
     function supportPrayer(id) {
         prayerSupport(user.token, id);
 
     }
 
-    function nextPrayer() {
-        
+    const nextPrayer = () => {
+
     }
 
-    function getMorePrayers() {
-        dispatch(changeNextPage());
-        
+    const getMorePrayers = async () => {
+        if (nextPage.length > 0) {
+            const newPage = await prayerGetAll(user.token, currentPage + 2);
+            dispatch(changeNextPage());
+            dispatch(setNextPage(newPage.data));
+        }
     }
 
 
     return (
         <View style={styles.card}>
-            <Swiper 
+            <Swiper
                 cards={actualPage}
                 renderCard={(card) => {
                     return (
                         <View style={styles.card}>
-                            <Text style={styles.title}>{card.title}</Text>
-                            <Text style={styles.text}>{card.text}</Text>
-                            <Text style={styles.text}>{card.updatedAt}</Text>
+                            <Text style={styles.title}>{card?.title}</Text>
+                            <Text style={styles.text}>{card?.text}</Text>
+                            <Text style={styles.text}>{card?.updatedAt}</Text>
                         </View>
                     )
                 }}
                 onSwipedRight={(cardIndex) => supportPrayer(actualPage[cardIndex].id)}
-                onSwipedLeft={(cardIndex) => nextPrayer()}
-                onSwipedAll={() => getMorePrayers()}
+                key={currentPage}
+                onSwipedLeft={nextPrayer}
+                onSwipedAll={getMorePrayers}
                 backgroundColor={'#4FD0E9'}
                 stackSize={2}
                 verticalSwipe={false}

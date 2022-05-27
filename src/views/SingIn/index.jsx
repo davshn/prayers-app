@@ -23,7 +23,7 @@ export default function SingIn({ navigation }) {
         setInput(prev => ({ ...prev, [name]: text }));
     }
 
-    async function handleSendForm() {
+    const handleSendForm = async () => {
         if (input.email && input.password) {
             const user = await userLogin(input);
             if (!user.ok) setError(user.data);
@@ -51,13 +51,13 @@ export default function SingIn({ navigation }) {
                     Contraseña requerida.
                 </FormControl.ErrorMessage>}
             </FormControl>
-            <ButtonGradient title="Ingresar" onPress={() => handleSendForm()} />
+            <ButtonGradient title="Ingresar" onPress={handleSendForm} />
             <Text fontSize="xl" mt="10">Olvidaste tu contraseña?</Text>
             <Spacer />
             <Text fontSize="xl" mt="10">Aun no tienes una cuenta?</Text>
             <Text fontSize="xl">Registrate</Text>
             <Spacer />
-            {error && <ShowAlert text={error} onPress={()=>setError("")} />}
+            {error && <ShowAlert text={error} onPress={() => setError("")} />}
         </Box>
     )
 }
