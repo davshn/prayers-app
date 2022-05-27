@@ -7,6 +7,7 @@ import Splash from '../views/Splash';
 import SingUp from '../views/SingUp';
 import SingIn from '../views/SingIn';
 import Main from '../views/Main';
+import DetailedPrayer from '../views/DetailedPrayer';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default function StackNavigator() {
                 <>
                     <Stack.Screen name="Splash" component={Splash} />
                     <Stack.Screen name="Home" component={DrawerNavigator} />
+                    <Stack.Screen name="DetailedPrayer" component={DetailedPrayer} />
                 </>
             ) : (
                 <>

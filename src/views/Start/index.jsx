@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 //import { userInfo } from "../../services/userServices";
 import MainSwiper from "../../components/MainSwiper";
 
-export default function Inicio() {
+export default function Inicio({ navigation }) {
     const userInfo = useSelector(state => state.userInfoReducer);
 
     const actualPage = useSelector(state => state.allPrayersReducer.actualPage);

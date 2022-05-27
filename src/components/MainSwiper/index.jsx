@@ -1,11 +1,13 @@
 import Swiper from "react-native-deck-swiper";
 import { useSelector, useDispatch } from "react-redux";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 import { prayerSupport, prayerGetAll } from "../../services/prayerServices";
 import { changeNextPage, setNextPage } from "../../stateManagement/actions/allPrayersActions";
 
 export default function MainSwiper() {
+    const navigation = useNavigation();
     const dispatch = useDispatch();
     const actualPage = useSelector(state => state.allPrayersReducer.actualPage);
     const nextPage = useSelector(state => state.allPrayersReducer.nextPage);
@@ -29,6 +31,10 @@ export default function MainSwiper() {
         }
     }
 
+    function goToDetail(id) {
+        navigation.navigate('DetailedPrayer', id);
+    }
+
 
     return (
         <View style={styles.card}>
@@ -40,6 +46,7 @@ export default function MainSwiper() {
                             <Text style={styles.title}>{card?.title}</Text>
                             <Text style={styles.text}>{card?.text}</Text>
                             <Text style={styles.text}>{card?.updatedAt}</Text>
+                            <Button title="deta" onPress={() => goToDetail(card.id)} />
                         </View>
                     )
                 }}

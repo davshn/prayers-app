@@ -18,11 +18,11 @@ export default function Splash({ navigation }) {
     const user = useSelector(state => state.authUserReducer);
 
     useEffect(() => {
-        getUserInformation();
+        getUserInformation(user.token);
     }, []);
 
-    async function getUserInformation() {
-        const userInformation = await getUserInfo(user.token);
+    async function getUserInformation(token) {
+        const userInformation = await getUserInfo(token);
         if (userInformation.ok) {
             dispatch(setUserInfo(userInformation.data));
             getPrayers();
@@ -32,10 +32,9 @@ export default function Splash({ navigation }) {
 
     async function refreshUserToken() {
         const userRefreshed = await userRefresh(user.token, deviceInfo);
-        console.log(userRefreshed)
         if (userRefreshed.ok) {
             dispatch(loginUser(userRefreshed.data));
-            await getUserInformation();
+            await getUserInformation(userRefreshed.data.token);
         }
         else dispatch(logoutUser());
     }

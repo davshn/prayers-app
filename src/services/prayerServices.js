@@ -1,14 +1,52 @@
 import api from "./environment";
 
 const Route = '/prayer';
-const Size = '10';
 
 export const prayerGetAll = async (token, page) => {
     try {
         api.setHeader('Autentication', token);
-        const prayers = await api.get(Route + '/getall' + '?' + 'size=' + Size + '&' + 'page=' + page);
+        const prayers = await api.get(Route + '/getall' + '?' + 'size=' + '20' + '&' + 'page=' + page);
         console.log("Getting all prayers page " + page);
         return prayers;
+    } catch (error) {
+        console.log("Something went wrong...");
+        console.log(error);
+        return [`${error}`];
+    }
+}
+
+export const prayerGetOwn = async (token, page) => {
+    try {
+        api.setHeader('Autentication', token);
+        const prayers = await api.get(Route + '/getown' + '?' + 'size=' + '10' + '&' + 'page=' + page);
+        console.log("Getting own prayers page " + page);
+        return prayers;
+    } catch (error) {
+        console.log("Something went wrong...");
+        console.log(error);
+        return [`${error}`];
+    }
+}
+
+export const prayerGetSupported = async (token, page) => {
+    try {
+        api.setHeader('Autentication', token);
+        const prayers = await api.get(Route + '/getsupported' + '?' + 'size=' + '10' + '&' + 'page=' + page);
+        console.log("Getting own supported page " + page);
+        return prayers;
+    } catch (error) {
+        console.log("Something went wrong...");
+        console.log(error);
+        return [`${error}`];
+    }
+}
+
+export const prayerDetailed = async (token, prayerId) => {
+    try {
+        api.setHeader('Autentication', token);
+        const prayer = await api.get(Route + '/detailed/' + prayerId);
+        console.log("Getting prayer " + prayerId);
+        return prayer;
     } catch (error) {
         console.log("Something went wrong...");
         console.log(error);
