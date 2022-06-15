@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-import { prayerSupport, prayerGetAll } from "../../services/prayerServices";
+import { prayerSupport, prayerGetAll, prayerGetSupported } from "../../services/prayerServices";
 import { changeNextPage, setNextPage } from "../../stateManagement/actions/allPrayersActions";
+import { setSupportedPrayers } from "../../stateManagement/actions/supportedPrayersActions";
 
 export default function MainSwiper() {
     const navigation = useNavigation();
@@ -14,9 +15,10 @@ export default function MainSwiper() {
     const currentPage = useSelector(state => state.allPrayersReducer.currentPage);
     const user = useSelector(state => state.authUserReducer);
 
-    function supportPrayer(id) {
+    async function supportPrayer(id) {
         prayerSupport(user.token, id);
-
+        const supportedPrayers = await prayerGetSupported(user.token, 0);
+        dispatch(setSupportedPrayers(supportedPrayers.data));
     }
 
     const nextPrayer = () => {
@@ -24,7 +26,7 @@ export default function MainSwiper() {
     }
 
     const getMorePrayers = async () => {
-        if (nextPage.length > 0) {
+        if (nextPage?.length > 0) {
             const newPage = await prayerGetAll(user.token, currentPage + 2);
             dispatch(changeNextPage());
             dispatch(setNextPage(newPage.data));
@@ -46,7 +48,7 @@ export default function MainSwiper() {
                             <Text style={styles.title}>{card?.title}</Text>
                             <Text style={styles.text}>{card?.text}</Text>
                             <Text style={styles.text}>{card?.updatedAt}</Text>
-                            <Button title="deta" onPress={() => goToDetail(card.id)} />
+                            <Button title="detalle" onPress={() => goToDetail(card.id)} />
                         </View>
                     )
                 }}

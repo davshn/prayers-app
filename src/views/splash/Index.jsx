@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Splashing from '../../../assets/splashing.png';
 
-import { prayerGetAll } from "../../services/prayerServices";
+import { prayerGetAll, prayerGetSupported, prayerGetOwn } from "../../services/prayerServices";
 import { userRefresh, getUserInfo } from "../../services/userServices";
 
 import { loginUser, logoutUser } from "../../stateManagement/actions/authUserActions";
 import { setUserInfo } from "../../stateManagement/actions/userInfoActions";
 import { setActualPage, setNextPage } from "../../stateManagement/actions/allPrayersActions";
+import { setSupportedPrayers } from "../../stateManagement/actions/supportedPrayersActions";
+import { setOwnPrayers } from "../../stateManagement/actions/ownPrayersActions";
 
 export default function Splash({ navigation }) {
     const dispatch = useDispatch();
@@ -40,12 +42,16 @@ export default function Splash({ navigation }) {
     }
 
     async function getPrayers() {
-        const [allActualPrayers, allNextPrayers] = await Promise.all([
-            await prayerGetAll(user.token, 0),
-            await prayerGetAll(user.token, 1)
+        const [allActualPrayers, allNextPrayers, supportedPrayers, ownPrayers] = await Promise.all([
+            prayerGetAll(user.token, 0),
+            prayerGetAll(user.token, 1),
+            prayerGetSupported(user.token, 0),
+            prayerGetOwn(user.token, 0),
         ]);
         dispatch(setActualPage(allActualPrayers.data));
         dispatch(setNextPage(allNextPrayers.data));
+        dispatch(setSupportedPrayers(supportedPrayers.data));
+        dispatch(setOwnPrayers(ownPrayers.data));
         navigation.navigate('Home');
     }
 

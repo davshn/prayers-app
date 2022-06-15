@@ -10,14 +10,16 @@ export default function DetailedPrayer({route}) {
     
     async function fetchPrayer  ()  {
        const detail=await prayerDetailed(user.token, prayerId);
-        setPrayer(detail.data);
+       setPrayer(detail.data);
     }
-    
+    console.log(prayer)
     useEffect(() => { fetchPrayer() }, []);
     
     return (
         <Box h="100%" bg="white" alignItems="center" justifyContent="center">
             <Text>{prayer.title}</Text>
+            <Text>{prayer.text}</Text>
+            <Text>{prayer.supporters}</Text>
         </Box>
     )
 }

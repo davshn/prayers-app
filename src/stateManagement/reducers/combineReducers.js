@@ -5,6 +5,8 @@ import { persistReducer } from 'redux-persist';
 import authUserReducer from './authUserReducer';
 import userInfoReducer from './userInfoReducer';
 import allPrayersReducer from './allPrayersReducer';
+import supportedPrayersReducer from './supportedPrayersReducer';
+import ownPrayersReducer from './ownPrayersReducer';
 
 const storage = createSecureStore();
 
@@ -16,5 +18,7 @@ const persistConfig = {
 export default combineReducers({
     authUserReducer: persistReducer(persistConfig, authUserReducer),
     userInfoReducer,
-    allPrayersReducer
+    allPrayersReducer,
+    supportedPrayersReducer,
+    ownPrayersReducer
 })

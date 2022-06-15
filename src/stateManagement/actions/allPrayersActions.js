@@ -19,4 +19,3 @@ export function changeNextPage() {
     return { type: CHANGE_NEXT_PAGE };
 
 }
-
