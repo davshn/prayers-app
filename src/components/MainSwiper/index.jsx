@@ -16,7 +16,7 @@ export default function MainSwiper() {
     const user = useSelector(state => state.authUserReducer);
 
     async function supportPrayer(id) {
-        prayerSupport(user.token, id);
+        await prayerSupport(user.token, id);
         const supportedPrayers = await prayerGetSupported(user.token, 0);
         dispatch(setSupportedPrayers(supportedPrayers.data));
     }
@@ -41,7 +41,7 @@ export default function MainSwiper() {
     return (
         <View style={styles.card}>
             <Swiper
-                cards={actualPage}
+                cards={actualPage || []}
                 renderCard={(card) => {
                     return (
                         <View style={styles.card}>

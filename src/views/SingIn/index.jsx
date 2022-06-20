@@ -52,7 +52,6 @@ export default function SingIn({ navigation }) {
                 </FormControl.ErrorMessage>}
             </FormControl>
             <ButtonGradient title="Ingresar" onPress={handleSendForm} />
-            <Text fontSize="xl" mt="10">Olvidaste tu contraseña?</Text>
             <Spacer />
             <Text fontSize="xl" mt="10">Aun no tienes una cuenta?</Text>
             <Text fontSize="xl">Registrate</Text>

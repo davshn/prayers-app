@@ -39,7 +39,8 @@
     "redux-persist-expo-securestore": "^2.0.0",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
-    "expo-updates": "~0.13.2"
+    "expo-updates": "~0.13.2",
+    "@react-native-community/datetimepicker": "6.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

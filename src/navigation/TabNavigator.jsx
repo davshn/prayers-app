@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Start from '../views/Start';
 import SupportedPrayers from '../views/SupportedPrayers';
-import OwnPrayers from '../views/ownPrayers';
+import OwnPrayers from '../views/OwnPrayers';
 
 const Tab = createBottomTabNavigator();
 

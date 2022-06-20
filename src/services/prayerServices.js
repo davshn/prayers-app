@@ -65,3 +65,27 @@ export const prayerSupport = async (token, prayerId) => {
         return [`${error}`];
     }
 }
+
+export const prayerUnsupport = async (token, prayerId) => {
+    try {
+        api.setHeader('Autentication', token);
+        await api.put(Route + '/unsupport/' + prayerId);
+        console.log("Unsupporting prayer " + prayerId);
+    } catch (error) {
+        console.log("Something went wrong...");
+        console.log(error);
+        return [`${error}`];
+    }
+}
+
+export const prayerDelete = async (token, prayerId) => {
+    try {
+        api.setHeader('Autentication', token);
+        await api.delete(Route + '/delete/' + prayerId);
+        console.log("Deletting prayer " + prayerId);
+    } catch (error) {
+        console.log("Something went wrong...");
+        console.log(error);
+        return [`${error}`];
+    }
+}

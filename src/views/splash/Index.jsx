@@ -27,16 +27,16 @@ export default function Splash({ navigation }) {
         const userInformation = await getUserInfo(token);
         if (userInformation.ok) {
             dispatch(setUserInfo(userInformation.data));
-            getPrayers();
+            await getPrayers();
         }
         else await refreshUserToken();
     }
-
     async function refreshUserToken() {
         const userRefreshed = await userRefresh(user.token, deviceInfo);
         if (userRefreshed.ok) {
             dispatch(loginUser(userRefreshed.data));
             await getUserInformation(userRefreshed.data.token);
+            await getPrayers();
         }
         else dispatch(logoutUser());
     }
