@@ -12,13 +12,13 @@ export default function SingUp() {
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [show, setShow] = useState(false);
-    console.log(input)
+
     function handleInputChange(text, name) {
         setInput(prev => ({ ...prev, [name]: text }));
     }
     
     const handleSendForm = async () => {
-        if (input.email && input.password && input.name && input.lastname) {
+        if (input.email && input.password && input.name && input.lastname && input.dateOfBirth) {
             const user = await userRegister(input);
             if (!user.ok) setError(user.data);
             else {
